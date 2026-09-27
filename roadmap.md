@@ -1,0 +1,3 @@
+- [x] Criar Home institucional Life Store com seções, navegação e linguagem visual premium.
+- [x] Implementar orçamento que abre WhatsApp para revisão e experiência sticky ligada ao scroll.
+- [x] Validar desktop/mobile, links, formulário, metadata e lint; registrar limitações de assets.
