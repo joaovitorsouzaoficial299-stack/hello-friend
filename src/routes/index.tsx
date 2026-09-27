@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowDown, ArrowRight, ArrowUpRight, Instagram, MapPin, Menu, X } from "lucide-react";
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 
 const whatsapp = "https://wa.me/5562993013945";
@@ -91,7 +91,7 @@ function Experience() {
   }, []);
   const active = Math.min(3, Math.floor(progress * 4));
   return <section id="experiencia" className="experience" ref={ref}>
-    <div className="experience-sticky">
+    <div className="experience-sticky" style={{ "--scroll": progress } as CSSProperties}>
       <div className="experience-top wrap"><span className="eyebrow"><span className="eyebrow-line" /> 02 / EXPERIÊNCIA LIFE</span><span className="experience-counter">0{active + 1} <span>/ 04</span></span></div>
       <div className="experience-visual" aria-hidden="true">
         <div className="experience-halo" style={{ transform: `translate(-50%, -50%) scale(${0.75 + progress * 0.6})`, opacity: 0.25 + progress * 0.35 }} />
