@@ -1324,8 +1324,9 @@ em {
 }
 @media (max-width: 520px) {
   .hero {
-    min-height: 780px;
-    min-height: max(730px, 100svh);
+    min-height: 640px;
+    height: calc(100svh - 32px);
+    max-height: 800px;
   }
   .hero-content {
     padding-top: 150px;
