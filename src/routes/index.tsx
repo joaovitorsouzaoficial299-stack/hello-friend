@@ -398,7 +398,7 @@ function Home() {
               </h2>
               <p>
                 Mais do que tecnologia na tela. Um espaço físico para você nos encontrar em
-                Anápolis.
+                Anápolis. Aceitamos aparelhos Apple na troca.
               </p>
               <address>
                 <MapPin size={21} strokeWidth={1.4} />
