@@ -10,6 +10,11 @@ export async function listProducts() {
   return r.json() as Promise<Product[]>;
 }
 
+export async function listAdminProducts() {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/products?select=*&order=created_at.desc`, { headers: authHeaders() });
+  if (!r.ok) throw new Error("Não foi possível carregar o catálogo.");
+  return r.json() as Promise<Product[]>;
+}
 export async function signIn(email:string,password:string) {
   const r=await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`,{method:"POST",headers,body:JSON.stringify({email,password})});
   const data=await r.json(); if(!r.ok) throw new Error(data.error_description || data.msg || "Login inválido.");
