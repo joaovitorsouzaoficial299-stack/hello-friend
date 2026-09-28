@@ -5,7 +5,7 @@ import { deleteProduct,isAdmin,listProducts,saveProduct,signIn,signOut,session,u
 export const Route=createFileRoute("/admin")({component:Admin});
 function Admin(){
  const [authed,setAuthed]=useState(false),[email,setEmail]=useState("joaovitorsouzaoficial299@gmail.com"),[password,setPassword]=useState(""),[products,setProducts]=useState<Product[]>([]),[error,setError]=useState(""),[editing,setEditing]=useState<Partial<Product>|null>(null),[loading,setLoading]=useState(true);
- const refresh=()=>listProducts().then(setProducts);
+ const refresh=()=>listAdminProducts().then(setProducts);
  useEffect(()=>{isAdmin().then(ok=>{setAuthed(ok);if(ok)refresh()}).finally(()=>setLoading(false))},[]);
  async function login(e:React.FormEvent){e.preventDefault();setError("");try{await signIn(email,password);if(!await isAdmin())throw new Error("Este usuário não está autorizado como administrador.");setAuthed(true);await refresh()}catch(err){setError(err instanceof Error?err.message:"Erro ao entrar.")}}
  async function save(e:React.FormEvent){e.preventDefault();if(!editing)return;try{await saveProduct({...editing,price:Number(editing.price||0),discount_percent:Number(editing.discount_percent||0),stock:Number(editing.stock||0),available:editing.available!==false},editing.id);setEditing(null);await refresh()}catch(err){setError(err instanceof Error?err.message:"Erro ao salvar.")}}
