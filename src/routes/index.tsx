@@ -1,24 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
-
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+import { ArrowDown, ArrowUpRight, Instagram, MapPin, MessageCircle, Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
+export const Route=createFileRoute("/")({component:Home});
+const wa=(m:string)=>`https://wa.me/5562993013945?text=${encodeURIComponent(m)}`;
+function Home(){
+ const [menu,setMenu]=useState(false),[brand,setBrand]=useState("Apple"),[model,setModel]=useState(""),[problem,setProblem]=useState("Tela"),[scroll,setScroll]=useState(0);
+ useEffect(()=>{const f=()=>setScroll(Math.min(1,window.scrollY/900));addEventListener("scroll",f,{passive:true});return()=>removeEventListener("scroll",f)},[]);
+ const quote=(e:React.FormEvent)=>{e.preventDefault();window.open(wa(`Olá, Life Store! Gostaria de solicitar um orçamento.\n\nMarca: ${brand}\nModelo: ${model}\nProblema: ${problem}`),"_blank")};
+ return <main className="life-home"><header className="life-header"><a href="#inicio" className="life-brand"><span>LS</span><b>LIFE STORE</b></a><nav>{["INÍCIO","ORÇAMENTO","EXPERIÊNCIA","A LOJA","INSTAGRAM"].map((x,i)=><a key={x} href={["#inicio","#orcamento","#experiencia","#loja","#instagram"][i]}>{x}</a>)}<a className="soon" href="/loja">LOJA</a></nav><a className="glass-btn" href={wa("Olá, Life Store! Gostaria de falar com vocês.")}>WhatsApp <ArrowUpRight size={15}/></a><button className="mobile-toggle" onClick={()=>setMenu(!menu)}>{menu?<X/>:<Menu/>}</button></header>{menu&&<div className="mobile-nav">{["INÍCIO","ORÇAMENTO","EXPERIÊNCIA","A LOJA","INSTAGRAM"].map((x,i)=><a key={x} href={["#inicio","#orcamento","#experiencia","#loja","#instagram"][i]} onClick={()=>setMenu(false)}>{x}</a>)}<a href="/loja">LOJA</a></div>}
+ <section id="inicio" className="life-hero"><div className="hero-copy"><small>ANÁPOLIS · GO <i/> DESDE 2015</small><h1>TECNOLOGIA.<br/><em>ASSISTÊNCIA.</em><br/>SEU PRÓXIMO<br/>APARELHO.</h1><p>Loja física em Anápolis desde 2015. Assistência técnica, smartphones, acessórios e tecnologia.</p><div className="hero-actions"><a className="glass-btn gold" href="#orcamento">Solicitar orçamento <ArrowUpRight size={16}/></a><a className="glass-btn" href="#loja">Conhecer a Life Store</a></div></div><div className="hero-art"><div className="halo"/><div className="device device-back">LS</div><div className="device device-front">LS<span>Life Store</span></div><b>TECH / CARE / LIFE</b></div><a className="scroll" href="#orcamento">SCROLL <ArrowDown size={15}/></a></section>
+ <section id="orcamento" className="quote-section"><div className="section-tag">01 / ORÇAMENTO</div><div className="quote-grid"><div><h2>SEU APARELHO<br/><em>PRECISA DE ATENÇÃO?</em></h2><p>Conte o que aconteceu com seu aparelho e envie as informações diretamente para a Life Store.</p></div><form onSubmit={quote}><label>MARCA<select value={brand} onChange={e=>setBrand(e.target.value)}><option>Apple</option><option>Samsung</option><option>Motorola</option><option>Xiaomi</option><option>Outra</option></select></label><label>MODELO<input value={model} onChange={e=>setModel(e.target.value)} placeholder="Ex.: iPhone 15 Pro"/></label><label>PROBLEMA<div className="problem-list">{["Tela","Bateria","Conector","Face ID / Biometria","Software","Outro"].map(x=><button type="button" className={problem===x?"chosen":""} onClick={()=>setProblem(x)} key={x}>{x}</button>)}</div></label><button className="submit-btn"><MessageCircle size={17}/> SOLICITAR ORÇAMENTO <ArrowUpRight size={17}/></button></form></div></section>
+ <section id="experiencia" className="life-experience"><div className="section-tag">02 / EXPERIÊNCIA LIFE</div><div className="experience-stage"><div className="experience-copy"><span>TECNOLOGIA</span><b>ASSISTÊNCIA</b><strong>PERFORMANCE</strong><em>SEU PRÓXIMO APARELHO</em></div><div className="orbit" style={{transform:`translate3d(0,${scroll*90}px,0) rotate(${scroll*22}deg)`}}><div className="device experience-device">LS</div></div><p>Uma relação diferente com tecnologia.</p></div></section>
+ <section className="light-block"><div className="year">2015</div><div><div className="section-tag">03 / DESDE 2015</div><h2>UMA LOJA FÍSICA<br/>EM ANÁPOLIS.</h2><p>A Life Store possui loja física em Anápolis desde 2015, com foco em assistência técnica, smartphones, acessórios e tecnologia.</p></div></section>
+ <section className="delivery"><div className="section-tag">04 / ENTREGA</div><h2>ENTREGA EM <em>ANÁPOLIS.</em></h2><p>Realizamos entregas em Anápolis. Consulte as condições diretamente com a Life Store.</p></section>
+ <section id="loja" className="store-section"><div className="section-tag">05 / A LOJA</div><h2>VENHA CONHECER<br/><em>A LIFE STORE.</em></h2><div className="store-panel"><div className="store-art">LS<span>LOJA FÍSICA · ANÁPOLIS / GO</span></div><div className="address"><MapPin/><small>ENDEREÇO</small><p>Rua Aleixo Rodrigues de Queiroz, 701<br/>Vila Industrial / Jundiaí Industrial<br/>Anápolis - GO</p><a className="glass-btn" href="https://www.google.com/maps/search/?api=1&query=Rua+Aleixo+Rodrigues+de+Queiroz+701+Anapolis+GO">Como chegar <ArrowUpRight size={15}/></a></div></div></section>
+ <section id="instagram" className="instagram"><div><div className="section-tag">06 / INSTAGRAM</div><h2>ACOMPANHE<br/><em>A LIFE STORE.</em></h2></div><a className="instagram-card" href="https://www.instagram.com/lifestoreanps/" target="_blank" rel="noreferrer"><Instagram/><span>@lifestoreanps</span><ArrowUpRight/></a></section>
+ <section className="final-cta"><div className="final-mark">LS</div><div className="section-tag">07 / FALE COM A LIFE STORE</div><h2>PRECISA DE<br/><em>ASSISTÊNCIA?</em></h2><p>Fale com a Life Store e conte o que aconteceu com seu aparelho.</p><a className="glass-btn gold" href={wa("Olá, Life Store! Preciso de assistência para meu aparelho.")}>Falar no WhatsApp <MessageCircle size={16}/></a></section>
+ <footer><div className="life-brand"><span>LS</span><b>LIFE STORE</b></div><div>Anápolis · GO<br/>Rua Aleixo Rodrigues de Queiroz, 701<br/>Vila Industrial / Jundiaí Industrial</div><div><a href={wa("Olá, Life Store!")}>WhatsApp</a><a href="https://www.instagram.com/lifestoreanps/" target="_blank">Instagram</a></div><strong>DESDE 2015</strong></footer></main>
 }
